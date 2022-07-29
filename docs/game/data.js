@@ -51,14 +51,14 @@ phase_a.a1.regex = /^(.*)(meeting|thesis)(.*)$/
 
 phase_a.a3 = []
 phase_a.a3.alias = "Exploring the markers"
-phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset: <br> <br> Event - Description <br>276 - Idling EEG (eyes open) <br>277- Idling EEG (eyes closed) <br>768 - Start of a trial <br>769 - Cue onset left hand MI (class 1) <br>770 - Cue onset right hand MI (class 2) <br>783 - Cue unknown <br>1023 - Rejected trial <br>1072 - Eye movements <br>32766 - Start of a new run <br> <br> You also see that there is roughly 10 seconds between markers. That is quite long for events.. What do you want to do next?"
+phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset: <br> <br> Event - Description <br>S201 - Start of recording <br> S255 - End of recording <br>S101 - Non-target Stimulus 1 <br> S102 - Non-target Stimulus 2 <br>S103 - Non-target Stimulus 3 <br>S104 - Non-target Stimulus 4 <br>S105 - Non-target Stimulus 5<br>S106 - Non-target Stimulus 6 <br>S111 - Target Stimulus 1 <br> S112 - Target Stimulus 2 <br>S113 - Target Stimulus 3 <br> S114 - Target Stimulus 4 <br>S115 - Target Stimulus 5<br>S116 - Target Stimulus 6  <br> <br> You also see that there is roughly 250ms between markers. That is quite short for events.. What do you want to do next?"
 phase_a.a3.hint = "What does timing of the events tell us about the type of paradigm? Is it an ERP experiment? Or are we in the oscillatory domain? What does the naming of the markers tell us about the paradigm? <br> I should probably also check the specs of the recordings, like the sampling frequency, before I start preprocessing."
 phase_a.a3.dests = ['M0','A4','A5']
 phase_a.a3.regex = /^(.*)(event|marker)(.*)$/
 
 phase_a.a4 = []
 phase_a.a4.alias = "Sampling frequecy"
-phase_a.a4.desc = "You take a look at the sampling frequency encoded in the metadata of the files, it appears that the data was sampled at 250Hz."
+phase_a.a4.desc = "You take a look at the sampling frequency encoded in the metadata of the files, it appears that the data was sampled at 1000Hz."
 phase_a.a4.hint = "I now know the sampling frequency, if I also know the type of paradigm I can start preprocessing!"
 phase_a.a4.dests = ['M0','A3','A5']
 phase_a.a4.regex = /^(.*)(sampl(.*)frequency|sampl(.*)rate)$/
@@ -66,7 +66,7 @@ phase_a.a4.regex = /^(.*)(sampl(.*)frequency|sampl(.*)rate)$/
 
 phase_a.a5 = []
 phase_a.a5.alias = "Exploring the EEG Channels"
-phase_a.a5.desc = "There are 22 EEG channels, sadly their naming scheme isn't very informative about the layout"
+phase_a.a5.desc = "There are 64 EEG channels using the standard 10-20 scheme and 5 more channels tracking other signals such as EMG."
 phase_a.a5.hint = "I need to know some information before I can start preprocessing... What is the experimental setup such as task and sampling frequency?"
 phase_a.a5.dests = ['M0','A3','A4']
 phase_a.a5.regex = /^(.*)(channels)(.*)$/
