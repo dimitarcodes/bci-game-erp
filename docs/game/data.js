@@ -330,14 +330,20 @@ phase_g.g1.desc = ""
 phase_g.g1.regex = /^(.*)(results|performance)(.*)$/
 
 var data_state = 0;
+// whether we've applied a spectral filter or not TO DO: epoching as well
+// 0 = raw data, no modification, during exploration phase
+// 1 = filter applied, no epoching
+// 2 = epoching, no filter
+// 3 = filter and epoching
+
 var phase_counter = 0;
 // miscelleneaous 1 - plot PSD
 
 var misc = []
 misc.psd = []
-misc.psd.alias = "Plot PSD"
+misc.psd.alias = "Plot data and PSD"
 misc.psd.desc = ["You plot the raw data and the raw data's frequency spectrum (PSD)", "You plot the data's frequency spectrum (PSD)", "You plot the data's frequency spectrum (PSD)"]
-misc.psd.images = [['A2_1.png', 'A2_2.png'], ['B5A.png'], ['B5B.png']]
+misc.psd.images = [['rawdataplot.png', 'rawdatapsd.png'], ['B5A.png'], ['B5B.png']]
 misc.psd.denied  = ["You're no longer in exploratory phase", "You're not in the preprocessing phase right now."]
 misc.psd.regex = /^(.*)(data|frequency spectrum|spectrum|spectrogram|psd)(.*)$/
 
