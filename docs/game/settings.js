@@ -2,10 +2,10 @@
 
 settings.title = "The Mad ERP Supervisor"
 settings.author = "Dimitar Dimitrov (@mechachki 🐻)"
-settings.version = "0.02"
+settings.version = "0.03"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for supporting us."]
 settings.warnings = "No warnings have been set for this game."
-settings.playMode = "play"
+settings.playMode = "dev"
 
 //turn off compass
 settings.compassPane = false
@@ -20,4 +20,16 @@ settings.roomCreateFunc = function(o) {
         ex.dir = 'to ' + (o.dirAlias ? o.dirAlias : o.alias)
         }
     }
+}
+
+const walkthroughs = {
+    a:[
+        "go to first thesis meeting",
+        "check markers",
+        "check sampling rate",
+        "go to preprocessing phase",
+        "apply epoching",
+        "apply spectral filter",
+        "choose band B"
+    ]
 }

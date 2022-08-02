@@ -97,21 +97,21 @@ phase_b.b1.regex = /^(.*)(eye|blink)(.*)$/
 
 phase_b.b3 = []
 phase_b.b3.alias = "Remove noisy channels"
-phase_b.b3.desc = "You tried removing noisy channels by using a min-max threshold criterion. No channels were removed from the data. There are already only 22 channels in the data, perhaps the noisy channels were already removed before publication."
-phase_b.b3.hint = "There are other steps in the preprocessing phase that are also required. Can we limit the number of samples for example? Do we have to split up the signals in some way?"
+phase_b.b3.desc = "You tried removing noisy channels by using a min-max threshold criterion. No channels were removed from the data. Perhaps only the good recordings were published from this experiment?"
+phase_b.b3.hint = "There are other steps in the preprocessing phase that are also required. Can we limit the number of samples for example? Do we have to split up the data in a certain way?"
 phase_b.b3.dests = ['B1','M0','B4','B5','B6']
 phase_b.b3.regex = /^(.*)(nois|outlier)(.*)$/
 
 phase_b.b4 = []
 phase_b.b4.alias = "Downsampling"
 phase_b.b4.desc = "You down-sample the data to 100Hz. This will speed up future processes significantly."
-phase_b.b4.hint = "This was a step we wanted you to do, good job. It is however still important you do at least 1 other important step in the preprocessing phase before we can learn anything."
+phase_b.b4.hint = "This was a step we wanted you to do, good job. Besides downsampling there is still at least 1 other important step in the preprocessing phase you need to do before we can move on to the next phase."
 phase_b.b4.dests = ['B1','M0','B3','B5','B6']
 phase_b.b4.regex = /^(.*)(resampl|downsampl)(.*)$/
 
 phase_b.b5 = []
 phase_b.b5.alias = "Spectral filtering"
-phase_b.b5.desc = "You want to spectral filter the data, smart! What frequency band do you think is best in this scenario?: <br> <br> A: [1 - 10] Hz <br> B: [7-20] Hz <br> <br> type: 'choose band A' or 'choose band B' to continue "
+phase_b.b5.desc = "You want to spectral filter the data, smart! What frequency band do you think is best in this scenario?: <br> <br> A: [7 - 20] Hz <br> B: [0.5-16] Hz <br> <br> type: 'choose band A' or 'choose band B' to continue "
 phase_b.b5.desc_epoched = "You want to spectral filter the data, smart! Usually this would be a bad idea after epoching, but thankfully you took epochs with enough time for the filters to warm up. What frequency band do you think is best in this scenario?: <br> <br> A: [1 - 10] Hz <br> B: [7-20] Hz <br> <br> type: 'choose band A' or 'choose band B' to continue "
 phase_b.b5.hint = "Do you know what the paradigm is? What were the markers? What frequency band should at least be in the range of our filter?"
 phase_b.b5.dests = ['B5A', 'B5B'] // manually
@@ -119,26 +119,26 @@ phase_b.b5.regex = /^(.*)(spectr(.*)filter|bandpass filter|frequency filter)(.*)
 
 phase_b.b5A = []
 phase_b.b5A.alias = "Filter band A"
-phase_b.b5A.desc = "You applied a band pass filter that limited the frequency contents to the [1-10] Hz band."
+phase_b.b5A.desc = "You applied a band pass filter that limited the frequency contents to the [7-20] Hz band."
 phase_b.b5A.hint = "Did you already limit the number of samples to speed up processing later on?"
-phase_b.b5A.images = ['B5A.png']
+phase_b.b5A.images = ['720psd.png']
 phase_b.b5A.dests = ['B1','M0','B3','B4','B6']
 phase_b.b5A.regex = /^(.*)(band a)(.*)$/
 
 phase_b.b5B = []
 phase_b.b5B.alias = "Filter band B"
-phase_b.b5B.desc = "You applied a band pass filter that limited the frequency contents to the [7-20] Hz band. Hopefully you did this because you know this is a motor imagery task and attempted to preserve content related to this task and didn't just guess the answer.."
+phase_b.b5B.desc = "You applied a band pass filter that limited the frequency contents to the [0.5-16] Hz band."
 phase_b.b5B.hint = "Did you already limit the number of samples to speed up processing later on?"
-phase_b.b5B.images = ['B5B.png']
+phase_b.b5B.images = ['0516psd.png']
 phase_b.b5B.dests = ['B1','M0','B3','B4','B6']
 phase_b.b5B.regex = /^(.*)(band b)(.*)$/
 
 phase_b.b6 = []
 phase_b.b6.alias = "Epoching"
-phase_b.b6.desc = "You cut the data into epochs of [-1, 7]s, such that each epoch contains the EEG-signals of one of the two classes. Remember the markers, these contain the classes we are interested in."
+phase_b.b6.desc = "You cut the data into epochs of [-0.2, 1]s, such that each epoch contains the EEG-signals of one of one class. Remember the markers, these contain the classes we are interested in."
 phase_b.b6.hint = "This could be the last step of the preprocessing phase. You could try to 'go to choosing spatial filter'. If you're not allowed to do so, you probably missed a step."
 phase_b.b6.dests = ['B1','M0','B3','B4','B5']
-phase_b.b6.regex = /^(.*)(epoch|split)(.*)$/
+phase_b.b6.regex = /^(.*)(epoch|split)(.*)$/ 
 
 // SPATIAL FILTERING PHASE DATA
 var phase_c = []
@@ -332,9 +332,11 @@ phase_g.g1.regex = /^(.*)(results|performance)(.*)$/
 var data_state = 0;
 // whether we've applied a spectral filter or not TO DO: epoching as well
 // 0 = raw data, no modification, during exploration phase
-// 1 = filter applied, no epoching
-// 2 = epoching, no filter
-// 3 = filter and epoching
+// 1 = only epoching
+// 2 = 7-20 + epoch
+// 3 = 7-20 only
+// 4 = 0.5-16 + epoch
+// 5 = 0.5-16 only
 
 var phase_counter = 0;
 // miscelleneaous 1 - plot PSD
@@ -343,7 +345,7 @@ var misc = []
 misc.psd = []
 misc.psd.alias = "Plot data and PSD"
 misc.psd.desc = ["You plot the raw data and the raw data's frequency spectrum (PSD). The raw data points look awful but the PSD should give you some hints on what to do later on ;)", "You plot the data's frequency spectrum (PSD)", "You plot the data's frequency spectrum (PSD)"]
-misc.psd.images = [['rawdataplot.png', 'rawdatapsd.png'], ['B5A.png'], ['B5B.png']]
+misc.psd.images = [['rawdataplot.png', 'rawdatapsd.png'], ['epochedplot.png', 'rawdatapsd.png'], [],['B5B.png']]
 misc.psd.denied  = ["You're no longer in exploratory phase", "You're not in the preprocessing phase right now."]
 misc.psd.regex = /^(.*)(data|frequency spectrum|spectrum|spectrogram|psd)(.*)$/
 
@@ -623,7 +625,11 @@ createRoom('B5A', {
   desc: phase_b.b5A.desc,
   afterFirstEnter: function(){
     mandatory(phase_b, 3)
-    data_state = 1
+    if (phase_b.gate % 7 == 0){
+      data_state = 2
+    } else {
+      data_state = 3
+    }
   },
   afterEnter: function(){
     setHint(phase_b.b5A.hint, phase_b)
@@ -661,7 +667,11 @@ createRoom('B5B', {
   desc: phase_b.b5B.desc,
   afterFirstEnter: function(){
     mandatory(phase_b, 5)
-    data_state = 2
+    if (phase_b.gate % 7 == 0){
+      data_state = 4
+    } else {
+      data_state = 5
+    }
   },
   afterEnter: function(){
     setHint(phase_b.b5B.hint, phase_b)
@@ -700,6 +710,7 @@ createRoom('B6', {
   afterFirstEnter: function(){
     mandatory(phase_b, 7)
     if (!(phase_b.gate % 3 === 0 || phase_b.gate % 5 === 0)){
+      data_state = 1
       phase_b.b5.desc = phase_b.b5.desc_epoched
     }
   },
