@@ -1,8 +1,8 @@
 "use strict"
 
 settings.title = "The Mad ERP Supervisor"
-settings.author = "Dimitar Dimitrov (@mechachki 🐻)"
-settings.version = "0.04"
+settings.author = "Floris van Wettum and Dimitar Dimitrov (@mechachki 🐻)"
+settings.version = "0.05"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for supporting us."]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "dev"
@@ -41,6 +41,8 @@ const walkthroughs = {
         "plot data",
         "apply spectral filter",
         "choose band B",
-        "plot data"
+        "plot data",
+        "apply downsampling",
+        "go to feature engineering phase"
     ]
 }

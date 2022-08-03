@@ -77,7 +77,7 @@ var phase_b = []
 phase_b.gate = 1;
 phase_b.condition = 14;
 phase_b.unavailable = "You can probably still do something else as well. Have you made sure the time and frequency domains of the data are in the shape we expect them to be? ;)"
-phase_b.available = " You've already done the most important steps of this phase. You can probably move on to the spatial filter selection phase - type 'go to spatial filtering phase'."
+phase_b.available = " You've already done the most important steps of this phase. You can probably move on to the spatial filter selection phase - type 'go to feature selection phase'."
 phase_b.hint = ""
 
 phase_b.b0 = []
@@ -136,11 +136,11 @@ phase_b.b5B.regex = /^(.*)(band b)(.*)$/
 phase_b.b6 = []
 phase_b.b6.alias = "Epoching"
 phase_b.b6.desc = "You cut the data into epochs of [-0.2, 1]s, such that each epoch contains the EEG-signals of one of one class. Remember the markers, these contain the classes we are interested in."
-phase_b.b6.hint = "This could be the last step of the preprocessing phase. You could try to 'go to choosing spatial filter'. If you're not allowed to do so, you probably missed a step."
+phase_b.b6.hint = "This could be the last step of the preprocessing phase. You could try to 'go to feature selection phase'. If you're not allowed to do so, you probably missed a step."
 phase_b.b6.dests = ['B1','M0','B3','B4','B5']
 phase_b.b6.regex = /^(.*)(epoch|split)(.*)$/ 
 
-// SPATIAL FILTERING PHASE DATA
+// SPATIAL FILTERING PHASE FEATURE ENGINEERING
 var phase_c = []
 phase_c.gate = 1;
 phase_c.condition = 2;
@@ -149,34 +149,34 @@ phase_c.available = ""
 phase_c.hint = ""
 
 phase_c.c0 = []
-phase_c.c0.alias = "Choosing spatial filter"
-phase_c.c0.desc = "You've finished preprocessing the data. Now it's time to bring the data into a space such that we can perform some analysis or train a model."
-phase_c.c0.hint = "Remember the markers, what can we do with this data? We want to bring the data into a space/shape such that we can learn something useful from this paradigm.",
-phase_c.c0.dests = ['C1', 'C2', 'C3']
-phase_c.c0.regex = /^(.*)(spatial)(.*)$/
+phase_c.c0.alias = "Feature Engineering"
+phase_c.c0.desc = "You've finished preprocessing the data. Now it's time to think of ways we can transform the data in order to make analysis or training a model easier.<br><br>If you can't think of any ways to engineer new features - just PLACEHOLDER"
+phase_c.c0.hint = "Think about the current dimensions of each sample (epoch). Can we somehow reduce the dimensionality? Is every single point informative or are certain parts of the data more important when working with evoked responses?",
+phase_c.c0.dests = ['C3']
+phase_c.c0.regex = /^(.*)(feature selection|feature engineering)(.*)$/
 
-phase_c.c1 = []
-phase_c.c1.alias = 'PCA'
-phase_c.c1.desc = 'You apply Principal Component Analysis and receive 22 components. What else can you do, what are we working towards?'
-phase_c.c1.hint = 'Remember the markers, what are the targets? Do we want to work towards classification or regression?'
-phase_c.c1.dests = ['C2', 'C3']
-phase_c.c1.unavailable = "Great that you're already thinking about PCA, but we'll keep that along with other spatial filtering methods for the next phase - 'spatial filter phase'. We'll tell you once you can move on to that phase ;)"
-phase_c.c1.regex = /^(.*)(pca|principal component)(.*)$/
+// phase_c.c1 = []
+// phase_c.c1.alias = 'PCA'
+// phase_c.c1.desc = 'You apply Principal Component Analysis and receive 22 components. What else can you do, what are we working towards?'
+// phase_c.c1.hint = 'Remember the markers, what are the targets? Do we want to work towards classification or regression?'
+// phase_c.c1.dests = ['C2', 'C3']
+// phase_c.c1.unavailable = "Great that you're already thinking about PCA, but we'll keep that along with other spatial filtering methods for the next phase - 'spatial filter phase'. We'll tell you once you can move on to that phase ;)"
+// phase_c.c1.regex = /^(.*)(pca|principal component)(.*)$/
 
-phase_c.c2 = []
-phase_c.c2.alias = 'ICA'
-phase_c.c2.desc = 'You apply Independent Component Analysis and receive 22 components. What else can you do, what are we working towards?'
-phase_c.c2.hint = 'Remember the markers, what are the targets? Do we want to work towards classification or regression?'
-phase_c.c2.dests = ['C1', 'C3']
-phase_c.c2.unavailable = "Great that you're already thinking about ICA, but we'll keep that along with other spatial filtering methods for the next phase - 'spatial filter phase'. We'll tell you once you can move on to that phase ;)"
-phase_c.c2.regex = /^(.*)(ica|independent component)(.*)$/
+// phase_c.c2 = []
+// phase_c.c2.alias = 'ICA'
+// phase_c.c2.desc = 'You apply Independent Component Analysis and receive 22 components. What else can you do, what are we working towards?'
+// phase_c.c2.hint = 'Remember the markers, what are the targets? Do we want to work towards classification or regression?'
+// phase_c.c2.dests = ['C1', 'C3']
+// phase_c.c2.unavailable = "Great that you're already thinking about ICA, but we'll keep that along with other spatial filtering methods for the next phase - 'spatial filter phase'. We'll tell you once you can move on to that phase ;)"
+// phase_c.c2.regex = /^(.*)(ica|independent component)(.*)$/
 
 phase_c.c3 = []
-phase_c.c3.alias = "CSP"
-phase_c.c3.desc = "You use CSP to project the data. You receive 22 components. You decided to select 4 out of these 22 CSP components, which ones do you take?: <br> <br> A: 4 with the largest eigenvalues <br> B: 2 from both sides of the eigenvalue spectrum <br> C: 4 with the smallest eigenvalues <br> <br> type: 'select component set A', 'select component set B' or 'select component set C' to continue."
+phase_c.c3.alias = "Get jumping means"
+phase_c.c3.desc = "You decide to take certain intervals and represent them by their means, reducing each channel in an epoch to just 5 points (times 64 channels = only 320 points). Based on the average target and non-target epochs what intervals do you want to pick : <br> <br> A: (0-0.1), (0.1-0.2), (0.2-0.3), (0.3-0.4)<br> B: 2 from both sides of the eigenvalue spectrum <br> C: 4 with the smallest eigenvalues <br> <br> type: 'select component set A', 'select component set B' or 'select component set C' to continue."
 phase_c.c3.hint = "What do the filters of CSP learn? What do the filters from both sides of the spectrum stand for? What information does the band-power of the CSP components have? Can you transform this information into features?"
 phase_c.c3.dests = ['D1A','D1B','D1C']
-phase_c.c3.regex = /^(.*)(csp|common spatial pattern)(.*)$/
+phase_c.c3.regex = /^(.*)(jumping means)(.*)$/
 
 phase_c.c4 = []
 phase_c.c4.alias = "SPoC"
