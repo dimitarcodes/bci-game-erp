@@ -2,7 +2,7 @@
 
 settings.title = "The Mad ERP Supervisor"
 settings.author = "Dimitar Dimitrov (@mechachki 🐻)"
-settings.version = "0.03"
+settings.version = "0.04"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for supporting us."]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "dev"
@@ -31,5 +31,16 @@ const walkthroughs = {
         "apply epoching",
         "apply spectral filter",
         "choose band B"
+    ],
+    b:[
+        "go to first thesis meeting",
+        "check markers",
+        "check sampling rate",
+        "go to preprocessing phase",
+        "apply epoching",
+        "plot data",
+        "apply spectral filter",
+        "choose band B",
+        "plot data"
     ]
 }
