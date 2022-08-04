@@ -152,7 +152,7 @@ phase_c.c0 = []
 phase_c.c0.alias = "Feature Engineering"
 phase_c.c0.desc = "You've finished preprocessing the data. Now it's time to think of ways we can transform the data in order to make analysis or training a model easier.<br><br>If you can't think of any ways to engineer new features - just PLACEHOLDER"
 phase_c.c0.hint = "Think about the current dimensions of each sample (epoch). Can we somehow reduce the dimensionality? Is every single point informative or are certain parts of the data more important when working with evoked responses?",
-phase_c.c0.dests = ['C3']
+phase_c.c0.dests = ['C3', 'E0']
 phase_c.c0.regex = /^(.*)(feature selection|feature engineering)(.*)$/
 
 // phase_c.c1 = []
@@ -173,65 +173,65 @@ phase_c.c0.regex = /^(.*)(feature selection|feature engineering)(.*)$/
 
 phase_c.c3 = []
 phase_c.c3.alias = "Get jumping means"
-phase_c.c3.desc = "You decide to take certain intervals and represent them by their means, reducing each channel in an epoch to just 5 points (times 64 channels = only 320 points). Based on the average target and non-target epochs what intervals do you want to pick : <br> <br> A: (0-0.1), (0.1-0.2), (0.2-0.3), (0.3-0.4)<br> B: 2 from both sides of the eigenvalue spectrum <br> C: 4 with the smallest eigenvalues <br> <br> type: 'select component set A', 'select component set B' or 'select component set C' to continue."
-phase_c.c3.hint = "What do the filters of CSP learn? What do the filters from both sides of the spectrum stand for? What information does the band-power of the CSP components have? Can you transform this information into features?"
+phase_c.c3.desc = "You decide to take certain intervals and represent them by their means, reducing each channel in an epoch to just 4 points (times 64 channels = only 256 points). Based on the average target and non-target epochs what should be the boundaries of the intervals: <br> <br> A: [0.1, 0.2, 0.3, 0.4, 0.5]<br> B: [0.0, 0.2, 0.4, 0.6, 0.8] <br> C: [0.0, 0.2, 0.3, 0.4, 0.6] <br> <br> type: 'select set A', 'select set B' or 'select set C' to continue."
+phase_c.c3.hint = "Think about the information we're trying to capture while still reducing the dimensionality."
 phase_c.c3.dests = ['D1A','D1B','D1C']
-phase_c.c3.regex = /^(.*)(jumping means)(.*)$/
+phase_c.c3.regex = /^(.*)(jumping mea|jump)(.*)$/
 
-phase_c.c4 = []
-phase_c.c4.alias = "SPoC"
-phase_c.c4.desc = "Are you sure? What were the markers? What is SPoC used for? Is there a better method?"
-phase_c.c4.dests = [] //sinkstate
-phase_c.c4.regex = /^(.*)(spoc|source power comodulation)(.*)$/
+// phase_c.c4 = []
+// phase_c.c4.alias = "SPoC"
+// phase_c.c4.desc = "Are you sure? What were the markers? What is SPoC used for? Is there a better method?"
+// phase_c.c4.dests = [] //sinkstate
+// phase_c.c4.regex = /^(.*)(spoc|source power comodulation)(.*)$/
 
 var phase_d = []
 phase_d.gate = 1
 phase_d.condition = 1
 phase_d.unavailable = "You're still missing a crucial step!"
-phase_d.available = "You *could* already go to the next phase: 'model selection'. IF you wish to do that, type 'go to model selection'."
+phase_d.available = ""
 phase_d.hint = ""
 
 phase_d.d1A = []
-phase_d.d1A.alias = "Components with the largest eigenvalues"
-phase_d.d1A.desc = "For each epoch, you reduce t he number of components to only 4, namely the ones with the largest corresponding eigenvalues. Can you transform these components into features for a model to train on?"
-phase_d.d1A.hint = "What information does the power of the CSP components have? Can you transform this information into features?"
-phase_d.d1A.dests = ['D2', 'D3', 'D4', 'E0']
-phase_d.d1A.regex = /^(.*)(component set a)(.*)$/
+phase_d.d1A.alias = "Jumping means with boundaries [0.1, 0.2, 0.3, 0.4, 0.5]"
+phase_d.d1A.desc = "For each channel in each epoch, you reduce the number of samples to only 4, namely the means of the intervals [0.1,0.2], [0.2,0.3], [0.3,0.4] and [0.4,0.5].<br><br>Now it's time for you to pick a machine learning method to predict whether an epoch contains a target or a non-target stimulus response."
+phase_d.d1A.hint = ""
+phase_d.d1A.dests = ['E0']
+phase_d.d1A.regex = /^(.*)(set a)(.*)$/
 
 phase_d.d1B = []
-phase_d.d1B.alias = "Components from both sides of the spectrum"
-phase_d.d1B.desc = "For each epoch, you reduce the number components to only 4 in total, 2 from both sides of the eigenvalue spectrum. Can you transform these components into features for a model to train on?"
-phase_d.d1B.hint = "What information does the power of the CSP components have? Can you transform this information into features?"
-phase_d.d1B.dests = ['D2', 'D3', 'D4', 'E0']
-phase_d.d1B.regex = /^(.*)(component set b)(.*)$/
+phase_d.d1B.alias = "Jumping means with boundaries [0.0, 0.2, 0.4, 0.6, 0.8]"
+phase_d.d1B.desc = "For each channel in each epoch, you reduce the number of samples to only 4, namely the means of the intervals [0.0,0.2], [0.2,0.4], [0.4,0.6] and [0.6,0.8].<br><br>Now it's time for you to pick a machine learning method to predict whether an epoch contains a target or a non-target stimulus response."
+phase_d.d1B.hint = ""
+phase_d.d1B.dests = ['E0']
+phase_d.d1B.regex = /^(.*)(set b)(.*)$/
 
 phase_d.d1C = []
-phase_d.d1C.alias = "Components with the smallest eigenvalues"
-phase_d.d1C.desc = "For each epoch, you reduce t he number of components to only 4, namely the ones with the smallest corresponding eigenvalues. Can you transform these components into features for a model to train on?"
-phase_d.d1C.hint = "What information does the power of the CSP components have? Can you transform this information into features?"
-phase_d.d1C.dests = ['D2', 'D3', 'D4', 'E0']
-phase_d.d1C.regex = /^(.*)(component set c)(.*)$/
+phase_d.d1C.alias = "Jumping means with boundaries [0.0, 0.2, 0.3, 0.4, 0.6]"
+phase_d.d1C.desc = "For each channel in each epoch, you reduce the number of samples to only 4, namely the means of the intervals [0.0,0.2], [0.2,0.3], [0.3,0.4] and [0.4,0.6].<br><br>Now it's time for you to pick a machine learning method to predict whether an epoch contains a target or a non-target stimulus response."
+phase_d.d1C.hint = ""
+phase_d.d1C.dests = ['E0']
+phase_d.d1C.regex = /^(.*)(set c)(.*)$/
 
-phase_d.d2 = []
-phase_d.d2.alias = "Compute average amplitdue"
-phase_d.d2.desc = "For each component, you compute the average amplitude. <br> You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
-phase_d.d2.hint = "Why the average? What can we do with these values?"
-phase_d.d2.dests = ['E0']
-phase_d.d2.regex = /^(.*)(average amplitude|average csp component|average component)(.*)$/
+// phase_d.d2 = []
+// phase_d.d2.alias = "Compute average amplitdue"
+// phase_d.d2.desc = "For each component, you compute the average amplitude. <br> You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
+// phase_d.d2.hint = "Why the average? What can we do with these values?"
+// phase_d.d2.dests = ['E0']
+// phase_d.d2.regex = /^(.*)(average amplitude|average csp component|average component)(.*)$/
 
-phase_d.d3 = []
-phase_d.d3.alias = "Compute average log-band power"
-phase_d.d3.desc = "For each component, you compute the average log band power. <br> You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
-phase_d.d3.hint = "Why the average? What can we do with these values?"
-phase_d.d3.dests = ['E0']
-phase_d.d3.regex = /^(.*)(band-power|bandpower|band power)(.*)$/
+// phase_d.d3 = []
+// phase_d.d3.alias = "Compute average log-band power"
+// phase_d.d3.desc = "For each component, you compute the average log band power. <br> You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
+// phase_d.d3.hint = "Why the average? What can we do with these values?"
+// phase_d.d3.dests = ['E0']
+// phase_d.d3.regex = /^(.*)(band-power|bandpower|band power)(.*)$/
 
-phase_d.d4 = []
-phase_d.d4.alias = "Compute average Hilbert transform / envelope"
-phase_d.d4.desc = "For each component, you compute the average envelope. <br> You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
-phase_d.d4.hint = "Why the average? What can we do with these values?"
-phase_d.d4.dests = ['E0']
-phase_d.d4.regex = /^(.*)(hilbert|envelope)(.*)$/
+// phase_d.d4 = []
+// phase_d.d4.alias = "Compute average Hilbert transform / envelope"
+// phase_d.d4.desc = "For each component, you compute the average envelope. <br> You have now entered the 'model selection' phase as there was nothing left for you to do in this feature extraction phase."
+// phase_d.d4.hint = "Why the average? What can we do with these values?"
+// phase_d.d4.dests = ['E0']
+// phase_d.d4.regex = /^(.*)(hilbert|envelope)(.*)$/
 
 var phase_e = []
 phase_e.gate = 1
@@ -759,35 +759,35 @@ createRoom('C0', {
   })),
 })
 
-createRoom('C1', {
-  headingAlias: phase_c.c1.alias,
-  desc: phase_c.c1.desc,
-  afterEnter: function(){setHint(phase_c.c1.hint, phase_c)},
-  regex:phase_c.c1.regex,
-  dests:phase_c.c1.dests.map(x => new Exit(x)).concat(
-    new Exit('C4',{
-    simpleUse:function(char){
-      if (false){
-          return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_c.c4.desc)
-      } 
-  })),
-})
+// createRoom('C1', {
+//   headingAlias: phase_c.c1.alias,
+//   desc: phase_c.c1.desc,
+//   afterEnter: function(){setHint(phase_c.c1.hint, phase_c)},
+//   regex:phase_c.c1.regex,
+//   dests:phase_c.c1.dests.map(x => new Exit(x)).concat(
+//     new Exit('C4',{
+//     simpleUse:function(char){
+//       if (false){
+//           return util.defaultSimpleExitUse(char, this)
+//         }else return falsemsg(phase_c.c4.desc)
+//       } 
+//   })),
+// })
 
-createRoom('C2', {
-  headingAlias: phase_c.c2.alias,
-  desc: phase_c.c2.desc,
-  afterEnter: function(){setHint(phase_c.c2.hint, phase_c)},
-  regex:phase_c.c2.regex,
-  dests:phase_c.c2.dests.map(x => new Exit(x)).concat(
-    new Exit('C4',{
-    simpleUse:function(char){
-      if (false){
-          return util.defaultSimpleExitUse(char, this)
-        }else return falsemsg(phase_c.c4.desc)
-      } 
-  })),
-})
+// createRoom('C2', {
+//   headingAlias: phase_c.c2.alias,
+//   desc: phase_c.c2.desc,
+//   afterEnter: function(){setHint(phase_c.c2.hint, phase_c)},
+//   regex:phase_c.c2.regex,
+//   dests:phase_c.c2.dests.map(x => new Exit(x)).concat(
+//     new Exit('C4',{
+//     simpleUse:function(char){
+//       if (false){
+//           return util.defaultSimpleExitUse(char, this)
+//         }else return falsemsg(phase_c.c4.desc)
+//       } 
+//   })),
+// })
 
 createRoom('C3', {
   headingAlias: phase_c.c3.alias,
@@ -798,19 +798,19 @@ createRoom('C3', {
   dests:phase_c.c3.dests.map(x => new Exit(x))
 })
 
-createRoom('C4', {
-  headingAlias: phase_c.c4.alias,
-  desc: phase_c.c4.desc,
-  regex:phase_c.c4.regex,
-  dests:[]
-})
+// createRoom('C4', {
+//   headingAlias: phase_c.c4.alias,
+//   desc: phase_c.c4.desc,
+//   regex:phase_c.c4.regex,
+//   dests:[]
+// })
 
 createRoom('D1A', {
   headingAlias: phase_d.d1A.alias,
   desc: phase_d.d1A.desc,
   afterFirstEnter: function(){mandatory(phase_d, 2)},
   afterEnter: function(){
-    setHint(phase_d.d1A.hint, phase_d)},
+   setHint(phase_d.d1A.hint, phase_d)},
   regex:phase_d.d1A.regex,
   dests:phase_d.d1A.dests.map(x => new Exit(x))
 })
@@ -834,35 +834,35 @@ createRoom('D1C', {
   dests:phase_d.d1C.dests.map(x => new Exit(x))
 })
 
-createRoom('D2', {
-  headingAlias: phase_d.d2.alias,
-  desc: phase_d.d2.desc,
-  afterEnter: function(){
-    mandatory(phase_d, 7, false)
-    util.defaultSimpleExitUse(game.player, new Exit('E0'))},
-  regex:phase_d.d2.regex,
-  dests:phase_d.d2.dests.map(x => new Exit(x))
-})
+// createRoom('D2', {
+//   headingAlias: phase_d.d2.alias,
+//   desc: phase_d.d2.desc,
+//   afterEnter: function(){
+//     mandatory(phase_d, 7, false)
+//     util.defaultSimpleExitUse(game.player, new Exit('E0'))},
+//   regex:phase_d.d2.regex,
+//   dests:phase_d.d2.dests.map(x => new Exit(x))
+// })
 
-createRoom('D3', {
-  headingAlias: phase_d.d3.alias,
-  desc: phase_d.d3.desc,
-  afterEnter: function(){
-    mandatory(phase_d, 11,false)
-    util.defaultSimpleExitUse(game.player, new Exit('E0'))},
-  regex:phase_d.d3.regex,
-  dests:phase_d.d3.dests.map(x => new Exit(x))
-})
+// createRoom('D3', {
+//   headingAlias: phase_d.d3.alias,
+//   desc: phase_d.d3.desc,
+//   afterEnter: function(){
+//     mandatory(phase_d, 11,false)
+//     util.defaultSimpleExitUse(game.player, new Exit('E0'))},
+//   regex:phase_d.d3.regex,
+//   dests:phase_d.d3.dests.map(x => new Exit(x))
+// })
 
-createRoom('D4', {
-  headingAlias: phase_d.d4.alias,
-  desc: phase_d.d4.desc,
-  afterEnter: function(){
-    mandatory(phase_d, 13,false)
-    util.defaultSimpleExitUse(game.player, new Exit('E0'))},
-  regex:phase_d.d4.regex,
-  dests:phase_d.d4.dests.map(x => new Exit(x))
-})
+// createRoom('D4', {
+//   headingAlias: phase_d.d4.alias,
+//   desc: phase_d.d4.desc,
+//   afterEnter: function(){
+//     mandatory(phase_d, 13,false)
+//     util.defaultSimpleExitUse(game.player, new Exit('E0'))},
+//   regex:phase_d.d4.regex,
+//   dests:phase_d.d4.dests.map(x => new Exit(x))
+// })
 
 
 createRoom('E0', {

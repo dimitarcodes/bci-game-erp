@@ -2,7 +2,7 @@
 
 settings.title = "The Mad ERP Supervisor"
 settings.author = "Floris van Wettum and Dimitar Dimitrov (@mechachki 🐻)"
-settings.version = "0.05"
+settings.version = "0.06"
 settings.thanks = ["Michael Tangermann and Jordy Thielen for supporting us."]
 settings.warnings = "No warnings have been set for this game."
 settings.playMode = "dev"
@@ -43,6 +43,9 @@ const walkthroughs = {
         "choose band B",
         "plot data",
         "apply downsampling",
-        "go to feature engineering phase"
+        "go to feature engineering phase",
+        "apply jumping means",
+        "select set a"
+        
     ]
 }
