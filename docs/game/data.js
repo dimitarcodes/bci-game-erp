@@ -330,13 +330,7 @@ phase_g.g1.desc = ""
 phase_g.g1.regex = /^(.*)(results|performance)(.*)$/
 
 var data_state = 0;
-// whether we've applied a spectral filter or not TO DO: epoching as well
-// 0 = raw data, no modification, during exploration phase
-// 1 = only epoching
-// 2 = 7-20 + epoch
-// 3 = 7-20 only
-// 4 = 0.5-16 + epoch
-// 5 = 0.5-16 only
+
 
 var phase_counter = 0;
 // miscelleneaous 1 - plot PSD
@@ -712,6 +706,10 @@ createRoom('B6', {
     if (!(phase_b.gate % 3 === 0 || phase_b.gate % 5 === 0)){
       data_state = 1
       phase_b.b5.desc = phase_b.b5.desc_epoched
+    } else if (phase_b.gate % 5  == 0){
+      data_state = 4
+    } else {
+      data_state = 2
     }
   },
   afterEnter: function(){setHint(phase_b.b6.hint, phase_b)},
