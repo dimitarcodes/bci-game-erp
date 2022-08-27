@@ -297,7 +297,7 @@ phase_f.f1.regex = /^(.*)(auc|area under the curve)(.*)$/
 
 phase_f.f2 = []
 phase_f.f2.alias = "Classification accuracy"
-phase_f.f2.desc = "You decide to evaluate your model using classification accuracy."
+phase_f.f2.desc = "You decide to evaluate your model using classification accuracy. Luckily, you notice that your target and non-target classes are severely imbalanced, therefore you choose to use balanced accuracy score from the sklearn library."
 phase_f.f2.dests = []
 phase_f.f2.regex = /^(.*)(accuracy)(.*)$/
 
@@ -810,7 +810,9 @@ createRoom('D1A', {
   desc: phase_d.d1A.desc,
   afterFirstEnter: function(){mandatory(phase_d, 2)},
   afterEnter: function(){
-   setHint(phase_d.d1A.hint, phase_d)},
+   setHint(phase_d.d1A.hint, phase_d)
+   util.defaultSimpleExitUse(game.player, new Exit('E0'))
+  },
   regex:phase_d.d1A.regex,
   dests:phase_d.d1A.dests.map(x => new Exit(x))
 })
@@ -819,7 +821,9 @@ createRoom('D1B', {
   desc: phase_d.d1B.desc,
   afterFirstEnter: function(){mandatory(phase_d, 3)},
   afterEnter: function(){
-    setHint(phase_d.d1B.hint, phase_d)},
+    setHint(phase_d.d1B.hint, phase_d)
+    util.defaultSimpleExitUse(game.player, new Exit('E0'))
+  },
   regex:phase_d.d1B.regex,
   dests:phase_d.d1B.dests.map(x => new Exit(x))
 })
@@ -829,7 +833,9 @@ createRoom('D1C', {
   desc: phase_d.d1C.desc,
   afterFirstEnter: function(){mandatory(phase_d, 5)},
   afterEnter: function(){
-    setHint(phase_d.d1C.hint, phase_d)},
+    setHint(phase_d.d1C.hint, phase_d)
+    util.defaultSimpleExitUse(game.player, new Exit('E0'))
+  },
   regex:phase_d.d1C.regex,
   dests:phase_d.d1C.dests.map(x => new Exit(x))
 })
@@ -980,180 +986,95 @@ createRoom('G1', {
   regex: phase_g.g1.regex,
   afterEnter: function(){
     setHint(phase_g.g1.hint, phase_g)
-    if (phase_b.gate % 5 == 0){
-      if (phase_d.gate % 3 == 0){
-        if (phase_d.gate % 7 == 0){
-          if (phase_e.gate % 2 == 0){
-            if (phase_f.gate % 2 == 0){
-              picture('F1_E1A_D2.png', 600)
-            }else if (phase_f.gate % 3 == 0){
-              msg("You get accuracy of 57.14285714285714\%! That's pretty low :/")
-            }else if (phase_f.gate % 5 == 0){
-              msg("You get average cross-validation score of 50.02463054187192\%! Yikes D:")
-            }
-          } else if (phase_e.gate%3 == 0){
-              if (phase_f.gate % 2 == 0){
-                picture('F1_E1B_D2.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
-                msg("You get accuracy of 57.14285714285714\%! That's pretty low :/")
-              }else if (phase_f.gate % 5 == 0){
-                msg("You get average cross-validation score of 50.71428571428571\%! Yikes D:")
-              }
-            } else if (phase_e.gate%5 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
-                picture('F1_E3_D2.png', 600)
-              }else if (phase_f.gate % 3 == 0){
-                msg("You get accuracy of 50\%! Yikes D:")
-              }else if (phase_f.gate % 5 == 0){ 
-                msg("You get average cross-validation score of 50.04926108374385\%! Yikes D:")
-              }
-            }
-          } else if (phase_d.gate % 11 == 0){
-            if (phase_e.gate % 2 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
-                picture('F1_E1A_D3.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
-                msg("You get accuracy of 78.57142857142857\%!")
-              }else if (phase_f.gate % 5 == 0){
-                msg("You get average cross-validation score of 85.36945812807882\%!")
-              }
-            } else if (phase_e.gate%3 == 0){
-                if (phase_f.gate % 2 == 0){ 
-                  picture('F1_E1B_D3.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
-                  msg("You get accuracy of 78.57142857142857\%!")
-                }else if (phase_f.gate % 5 == 0){
-                  msg("You get average cross-validation score of 87.4384236453202\%!")
-                }
-              } else if (phase_e.gate%5 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
-                  picture('F1_E3_D3.png', 600)
-                }else if (phase_f.gate % 3 == 0){
-                  msg("You get accuracy of 78.57142857142857\%!")
-                }else if (phase_f.gate % 5 == 0){
-                  msg("You get average cross-validation score of 87.41379310344828\%!")
-                }
-              }
-          } else if (phase_d.gate % 13 == 0){ 
-            if (phase_e.gate % 2 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
-                picture('F1_E1A_D4.png', 600)
-              }else if (phase_f.gate % 3 == 0){
-                msg("You get accuracy of 71.42857142857143\%!")
-              }else if (phase_f.gate % 5 == 0){ 
-                msg("You get average cross-validation score of 81.92118226600984\%!")
-              }
-            } else if (phase_e.gate%3 == 0){ 
-                if (phase_f.gate % 2 == 0){
-                  picture('F1_E1B_D4.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
-                  msg("You get accuracy of 71.42857142857143\%!")
-                }else if (phase_f.gate % 5 == 0){ 
-                  msg("You get average cross-validation score of 79.08866995073891\%!")
-                }
-              } else if (phase_e.gate%5 == 0){ 
-                if (phase_f.gate % 2 == 0){
-                  picture('F1_E3_D4.png', 600)
-                }else if (phase_f.gate % 3 == 0){
-                  msg("You get accuracy of 71.42857142857143\%!")
-                }else if (phase_f.gate % 5 == 0){
-                  msg("You get average cross-validation score of 79.08866995073891\%!")
-                }
-              }
+    if (phase_b.gate % 15 == 0){
+      msg('yikes, you applied both filters and destroyed any meaningful signals in your data. Of course you got chance-level performance, what did you expect?')
+    }else if (phase_b.gate % 3 == 0) {
+      msg('The filter you applied destroyed most of the meaningful neural markers in your data. Your model performs at or near chance level :(')
+      msg("The data plots should've been a dead giveaway that you messed up when you chose this filter - the target and non-target avereged epochs look identical:")
+      picture('720hzepochnts.png', 600)
+      picture('720hzepochtgs.png', 600)
+    }else if (phase_b.gate % 5 == 0){
+      if (phase_d.gate % 2 == 0){
+        if (phase_e.gate % 2 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetalda.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg('Your model obtained balanced accuracy of 65.556\%! Could be better..')
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 80.5829513602\%! Ehh, could be better..') // FALSIFIED
           }
-          
-      } else if (phase_d.gate % 2 == 0 || phase_d.gate % 5 == 0){
-        msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum")
-      }
-    } else if (phase_b.gate % 3 == 0) {
-      msg("Yikes, you spectrally filtered the data to a band you don't care about. You obtained chance level performance, as the task at hand has information in the other band. Reload the page to try again, pay attention to the markers!")
-    } else if (!(phase_b.gate % 3 == 0 ||  phase_b.gate%5 == 0)){
-      if (phase_d.gate % 3 == 0){
-        if (phase_d.gate % 7 == 0){
-          if (phase_e.gate % 2 == 0){ 
-            if (phase_f.gate % 2 == 0){ 
-              picture('nf_F1_E1A_D2.png', 600)
-            }else if (phase_f.gate % 3 == 0){
-              msg("You get accuracy of 50\%! That's pretty low :/")
-            }else if (phase_f.gate % 5 == 0){
-              msg("You get average cross-validation score of 53.49753694581281\%! Yikes D:")
-            }
-          } else if (phase_e.gate%3 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
-                picture('nf_F1_E1B_D2.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
-                msg("You get accuracy of 50\%! That's pretty low :/")
-              }else if (phase_f.gate % 5 == 0){ 
-                msg("You get average cross-validation score of 0.49334975369458134\%! Yikes D:")
-              }
-            } else if (phase_e.gate%5 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
-                picture('nf_F1_E3_D2.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
-                msg("You get accuracy of 46.42857142857143\%! Yikes D:")
-              }else if (phase_f.gate % 5 == 0){
-                msg("You get average cross-validation score of 51.40394088669951\%! Yikes D:")
-              }
-            }
-          } else if (phase_d.gate % 11 == 0){ 
-            if (phase_e.gate % 2 == 0){ 
-              if (phase_f.gate % 2 == 0){
-                picture('nf_F1_E1A_D3.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
-                msg("You get accuracy of 75\%!")
-              }else if (phase_f.gate % 5 == 0){ 
-                msg("You get average cross-validation score of 62.63546798029557\%!")
-              }
-            } else if (phase_e.gate%3 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
-                  picture('nf_F1_E1B_D3.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
-                  msg("You get accuracy of 60.71428571428571\%!")
-                }else if (phase_f.gate % 5 == 0){
-                  msg("You get average cross-validation score of 62.61083743842365\%!")
-                }
-              } else if (phase_e.gate%5 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
-                  picture('nf_F1_E3_D3.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
-                  msg("You get accuracy of 71.42857142857143\%!")
-                }else if (phase_f.gate % 5 == 0){
-                  msg("You get average cross-validation score of 62.61083743842364\%!")
-                }
-              }
-          } else if (phase_d.gate % 13 == 0){ 
-            if (phase_e.gate % 2 == 0){ 
-              if (phase_f.gate % 2 == 0){ 
-                picture('nf_F1_E1A_D4.png', 600)
-              }else if (phase_f.gate % 3 == 0){ 
-                msg("You get accuracy of 75\%!")
-              }else if (phase_f.gate % 5 == 0){ 
-                msg("You get average cross-validation score of 64.67980295566502\%!")
-              }
-            } else if (phase_e.gate%3 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
-                  picture('nf_F1_E1B_D4.png', 600)
-                }else if (phase_f.gate % 3 == 0){ 
-                  msg("You get accuracy of 75\%!")
-                }else if (phase_f.gate % 5 == 0){
-                  msg("You get average cross-validation score of 64.67980295566502\%!")
-                }
-              } else if (phase_e.gate%5 == 0){ 
-                if (phase_f.gate % 2 == 0){ 
-                  picture('nf_F1_E3_D4.png', 600)
-                }else if (phase_f.gate % 3 == 0){
-                  msg("You get accuracy of 75\%!")
-                }else if (phase_f.gate % 5 == 0){
-                  msg("You get average cross-validation score of 62.58620689655172\%!")
-                }
-              }
+        }else if (phase_e.gate % 3 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetashrinklda.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg("Your model obtained balanced accuracy of 53.333\%! That's near chance level :(")
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 81.5829513602\%! Ehh, could be better..') // FALSIFIED
           }
-      }else if (phase_d.gate % 2 == 0 || phase_d.gate % 5 == 0){
-        msg("Yikes, you took the wrong CSP components and got chance-level performance :( Should've picked components from both ends of the eigenvalue spectrum. You can reload the page to try again!")
+        } else if (phase_e.gate % 5 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetalogreg.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg("Your model obtained balanced accuracy of 50\%! That's chance level :(")
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 80.453672344\%! Ehh, could be better..') // FALSIFIED
+          }
+        }
+      } else if (phase_d.gate % 3 == 0){
+        if (phase_e.gate % 2 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetblda.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg('Your model obtained balanced accuracy of 77.037\%! Nice!')
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 80.5829513602\%! Ehh, could be better..') // FALSIFIED
+          }
+        }else if (phase_e.gate % 3 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetbshrinklda.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg("Your model obtained balanced accuracy of 55.185\%! That's near chance level :(")
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 81.5829513602\%! Ehh, could be better..') // FALSIFIED
+          }
+        } else if (phase_e.gate % 5 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetblogreg.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg("Your model obtained balanced accuracy of 50\%! That's chance level :(")
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 80.453672344\%! Ehh, could be better..') // FALSIFIED
+          }
+        }
+      } else if (phase_d.gate % 5 == 0){
+        if (phase_e.gate % 2 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetclda.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg('Your model obtained accuracy of 74.444\%! Nice!')
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 80.5829513602\%! Ehh, could be better..') // FALSIFIED
+          }
+        }else if (phase_e.gate % 3 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetcshrinklda.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg("Your model obtained balanced accuracy of 53.333\%! That's near chance level :(")
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 84.5829513602\%! Ehh, could be better..') // FALSIFIED
+          }
+        } else if (phase_e.gate % 5 == 0){
+          if (phase_f.gate % 2 == 0){
+            picture('16hzsetclogreg.png', 600)
+          } else if (phase_f.gate % 3 == 0){
+            msg("Your model obtained balanced accuracy of 50\%! That's chance level :(")
+          } else if (phase_f.gate % 5 == 0){
+            msg('Your model got average cross-validation score of 80.453672344\%! Ehh, could be better..') // FALSIFIED
+          }
+        }
       }
-    } else {
-      msg("Yikes, you applied both filters thinking we wouldn't think of that outcome, didn't you? Well now your data is just messed up, so of course you're gonna get chance level performance. What did you expect?")
     }
+    
   },
   dests:[]
 })
