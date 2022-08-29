@@ -150,7 +150,7 @@ phase_c.hint = ""
 
 phase_c.c0 = []
 phase_c.c0.alias = "Feature Engineering"
-phase_c.c0.desc = "You've finished preprocessing the data. Now it's time to think of ways we can transform the data in order to make analysis or training a model easier.<br><br>If you can't think of any ways to engineer new features - just PLACEHOLDER"
+phase_c.c0.desc = "You've finished preprocessing the data. Now it's time to think of ways we can transform the data in order to make analysis or training a model easier.<br><br>If you can't think of any ways to engineer new features - just type 'go to model selection phase'"
 phase_c.c0.hint = "Think about the current dimensions of each sample (epoch). Can we somehow reduce the dimensionality? Is every single point informative or are certain parts of the data more important when working with evoked responses?",
 phase_c.c0.dests = ['C3', 'E0']
 phase_c.c0.regex = /^(.*)(feature selection|feature engineering)(.*)$/
@@ -176,7 +176,7 @@ phase_c.c3.alias = "Get jumping means"
 phase_c.c3.desc = "You decide to take certain intervals and represent them by their means, reducing each channel in an epoch to just 4 points (times 64 channels = only 256 points). Based on the average target and non-target epochs what should be the boundaries of the intervals: <br> <br> A: [0.1, 0.2, 0.3, 0.4, 0.5]<br> B: [0.0, 0.2, 0.4, 0.6, 0.8] <br> C: [0.0, 0.2, 0.3, 0.4, 0.6] <br> <br> type: 'select set A', 'select set B' or 'select set C' to continue."
 phase_c.c3.hint = "Think about the information we're trying to capture while still reducing the dimensionality."
 phase_c.c3.dests = ['D1A','D1B','D1C']
-phase_c.c3.regex = /^(.*)(jumping mea|jump)(.*)$/
+phase_c.c3.regex = /^(.*)(jumping mea|jump|means)(.*)$/
 
 // phase_c.c4 = []
 // phase_c.c4.alias = "SPoC"
@@ -286,7 +286,7 @@ phase_f.f0 = []
 phase_f.f0.alias = "Evaluation strategy selection"
 phase_f.f0.desc = "Now it's time to determine how you will be evaluating your model."
 phase_f.f0.hint = "What validation methods have been discussed? Is there a way to get a performance metric?",
-phase_f.f0.dests = ['F1', 'F2', 'F3'] 
+phase_f.f0.dests = ['F1', 'F2'] 
 phase_f.f0.regex = /^(.*)(evaluation|validation)(.*)$/
 
 phase_f.f1 = []
@@ -954,15 +954,15 @@ createRoom('F2', {
 })
 
 
-createRoom('F3', {
-  headingAlias: phase_f.f3.alias,
-  desc: phase_f.f3.desc,
-  regex: phase_f.f3.regex,
-  afterEnter: function(){
-    mandatory(phase_f,5)
-    util.defaultSimpleExitUse(game.player, new Exit('G0'))},
-  dests:phase_f.f3.dests.map(x => new Exit(x))
-})
+// createRoom('F3', {
+//   headingAlias: phase_f.f3.alias,
+//   desc: phase_f.f3.desc,
+//   regex: phase_f.f3.regex,
+//   afterEnter: function(){
+//     mandatory(phase_f,5)
+//     util.defaultSimpleExitUse(game.player, new Exit('G0'))},
+//   dests:phase_f.f3.dests.map(x => new Exit(x))
+// })
 
 
 createRoom('G0', {
@@ -998,25 +998,19 @@ createRoom('G1', {
             picture('16hzsetalda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg('Your model obtained balanced accuracy of 65.556\%! Could be better..')
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 80.5829513602\%! Ehh, could be better..') // FALSIFIED
-          }
+          } 
         }else if (phase_e.gate % 3 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetashrinklda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 53.333\%! That's near chance level :(")
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 81.5829513602\%! Ehh, could be better..') // FALSIFIED
-          }
+          } 
         } else if (phase_e.gate % 5 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetalogreg.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 50\%! That's chance level :(")
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 80.453672344\%! Ehh, could be better..') // FALSIFIED
-          }
+          } 
         }
       } else if (phase_d.gate % 3 == 0){
         if (phase_e.gate % 2 == 0){
@@ -1024,24 +1018,18 @@ createRoom('G1', {
             picture('16hzsetblda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg('Your model obtained balanced accuracy of 77.037\%! Nice!')
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 80.5829513602\%! Ehh, could be better..') // FALSIFIED
-          }
+          } 
         }else if (phase_e.gate % 3 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetbshrinklda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 55.185\%! That's near chance level :(")
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 81.5829513602\%! Ehh, could be better..') // FALSIFIED
-          }
+          } 
         } else if (phase_e.gate % 5 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetblogreg.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 50\%! That's chance level :(")
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 80.453672344\%! Ehh, could be better..') // FALSIFIED
           }
         }
       } else if (phase_d.gate % 5 == 0){
@@ -1050,26 +1038,22 @@ createRoom('G1', {
             picture('16hzsetclda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg('Your model obtained accuracy of 74.444\%! Nice!')
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 80.5829513602\%! Ehh, could be better..') // FALSIFIED
           }
         }else if (phase_e.gate % 3 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetcshrinklda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 53.333\%! That's near chance level :(")
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 84.5829513602\%! Ehh, could be better..') // FALSIFIED
           }
         } else if (phase_e.gate % 5 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetclogreg.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 50\%! That's chance level :(")
-          } else if (phase_f.gate % 5 == 0){
-            msg('Your model got average cross-validation score of 80.453672344\%! Ehh, could be better..') // FALSIFIED
           }
         }
+      } else {
+        msg("The dimmensionality of your data was too big and your crappy laptop ran out of memory :( Maybe you should've reduced each channel to just a few samples by taking the means of informative intervals of the data...")
       }
     }
     
