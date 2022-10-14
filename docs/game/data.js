@@ -38,20 +38,20 @@ phase_a.hint = ""
 
 phase_a.a0 = []
 phase_a.a0.alias = "Introduction"
-phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story with the goal of creating an analysis pipeline. No fear, no 'spooky' code this time.<br><br>The game is played by giving it written commands describing the action you want to do. Think bigger picture - you don't need the implementation deatails, but rather - the next general step you'd take, for example: <br><br><i style='color:green'>'plot frequency spectrum'</i><br><br> or <br><br><i style='color:green'>'inspect marker file'</i><br><br> and even apply an algorithm like <br><br><i style='color:green'>'apply PCA'</i><br><br> It is <b>important</b> that you always start your action with one of the following words: <br><br><i>perform / plot/ apply / inspect / exammine /look at/ explore / use / remove / pick / choose / select / compute / ask about / go to</i><br><br> If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
+phase_a.a0.desc = "Hi! Welcome to this interactive BCI experience! In this little game you will go through a short story with the goal of creating an analysis pipeline. No fear, no 'spooky' code this time.<br><br>The game is played by giving it written commands describing the action you want to do. Think bigger picture - you don't need the implementation details, but rather - the next general step you'd take, for example: <br><br><i style='color:green'>'plot frequency spectrum'</i><br><br> or <br><br><i style='color:green'>'inspect marker file'</i><br><br> and even apply an algorithm like <br><br><i style='color:green'>'apply PCA'</i><br><br> It is <b>important</b> that you always start your action with one of the following words: <br><br><i>perform / plot/ apply / inspect / examine /look at/ explore / use / remove / pick / choose / select / compute / ask about / go to</i><br><br> If at any point you are lost or unsure how things work, you can always type 'help'. <br> <br> Are you ready? Type: 'go to first thesis meeting'"
 phase_a.a0.hint = "Go ahead - type 'go to the first meeting'"
 phase_a.a0.dests = ['A1']
 
 phase_a.a1 = []
 phase_a.a1.alias = "The First Thesis Meeting"
-phase_a.a1.desc = "Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then cleared his browser history. Now you have no idea what experiment the data came from and what its specs are. Your supervisor is persistent in that you should be able to get a good model from this data. <br><br> Supervisor: 'I had a PhD student that worked on that data! When he had trained a good model, he called me that he was on his way to show me, but then mysterously vanished... So now it's up to you to do put your BCI skills to some good use, go get me some results!' <br><br> You: 'Where exactly did you get the data from?' <br><br> Sup: 'Uuuuuhm.... the internet?'  <br><br> You: 'Do you remember what the experiment was?' <br><br> Sup: 'Nope, but inspecting the data and looking at the markers should be a good starting point, off you go!'<br><br> You go home (or the the TK/Altrium) and put the files on your laptop. You load up your favorite IDE (probably VSCode). What do you wanna check first?"
+phase_a.a1.desc = "Your silly thesis supervisor has bought some EEG data from some sketchy website. He just clicked 'Download' on the zip file and then cleared his browser history. Now you have no idea what experiment the data came from and what its specs are. Your supervisor is persistent in that you should be able to get a good model from this data. <br><br> Supervisor: 'I had a PhD student that worked on that data! When he had trained a good model, he called me that he was on his way to show me, but then mysteriously vanished... So now it's up to you to do put your BCI skills to some good use, go get me some results!' <br><br> You: 'Where exactly did you get the data from?' <br><br> Sup: 'Uuuuuhm.... the internet?'  <br><br> You: 'Do you remember what the experiment was?' <br><br> Sup: 'Nope, but inspecting the data and looking at the markers should be a good starting point, off you go!'<br><br> You go home (or the the TK/Altrium) and put the files on your laptop. You load up your favorite IDE (probably VSCode). What do you wanna check first?"
 phase_a.a1.hint = "Hmm.. the supervisor told me to inspect the data and especially the markers, I guess I should do that."
 phase_a.a1.dests = ['M0','A3','A4','A5']
 phase_a.a1.regex = /^(.*)(meeting|thesis)(.*)$/
 
 phase_a.a3 = []
 phase_a.a3.alias = "Exploring the markers"
-phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset: <br> <br> Event - Description <br>S201 - Start of recording <br> S255 - End of recording <br>S101 - Non-target Stimulus 1 <br> S102 - Non-target Stimulus 2 <br>S103 - Non-target Stimulus 3 <br>S104 - Non-target Stimulus 4 <br>S105 - Non-target Stimulus 5<br>S106 - Non-target Stimulus 6 <br>S111 - Target Stimulus 1 <br> S112 - Target Stimulus 2 <br>S113 - Target Stimulus 3 <br> S114 - Target Stimulus 4 <br>S115 - Target Stimulus 5<br>S116 - Target Stimulus 6  <br> <br> For each 6 markers (stimuli) you notice strictly 1 of them is of the Target type and the rest are Non-Targets. You also see that there is roughly 250ms between markers. That is quite short for events.. What do you want to do next?"
+phase_a.a3.desc = "You take a look at the markers encoded in the metadata of the files, it appears that there are a few markers used in this dataset: <br> <br> Event - Description <br>S201 - Start of recording <br> S255 - End of recording <br>S101 - Non-target Stimulus 1 <br> S102 - Non-target Stimulus 2 <br>S103 - Non-target Stimulus 3 <br>S104 - Non-target Stimulus 4 <br>S105 - Non-target Stimulus 5<br>S106 - Non-target Stimulus 6 <br>S111 - Target Stimulus 1 <br> S112 - Target Stimulus 2 <br>S113 - Target Stimulus 3 <br> S114 - Target Stimulus 4 <br>S115 - Target Stimulus 5<br>S116 - Target Stimulus 6  <br> <br> For each 6 markers (stimuli) you notice strictly 1 of them is of the Target type and the rest are Non-Targets. You also see that there is roughly 250ms between markers. That is quite short for events. What do you want to do next?"
 phase_a.a3.hint = "What does timing of the events tell us about the type of paradigm? Is it an ERP experiment? Or are we in the oscillatory domain? What does the naming of the markers tell us about the paradigm? <br> I should probably also check the specs of the recordings, like the sampling frequency, before I start preprocessing."
 phase_a.a3.dests = ['M0','A4','A5']
 phase_a.a3.regex = /^(.*)(event|marker)(.*)$/
@@ -138,7 +138,7 @@ phase_b.b6.alias = "Epoching"
 phase_b.b6.desc = "You cut the data into epochs of [-0.2, 1]s, such that each epoch contains the EEG-signals of one of one class. Remember the markers, these contain the classes we are interested in."
 phase_b.b6.hint = "This could be the last step of the preprocessing phase. You could try to 'go to feature selection phase'. If you're not allowed to do so, you probably missed a step."
 phase_b.b6.dests = ['B1','M0','B3','B4','B5']
-phase_b.b6.regex = /^(.*)(epoch|split)(.*)$/ 
+phase_b.b6.regex = /^(.*)(epoch|split)(.*)$/
 
 // SPATIAL FILTERING PHASE FEATURE ENGINEERING
 var phase_c = []
@@ -286,13 +286,13 @@ phase_f.f0 = []
 phase_f.f0.alias = "Evaluation strategy selection"
 phase_f.f0.desc = "Now it's time to determine how you will be evaluating your model."
 phase_f.f0.hint = "What validation methods have been discussed? Is there a way to get a performance metric?",
-phase_f.f0.dests = ['F1', 'F2'] 
+phase_f.f0.dests = ['F1', 'F2']
 phase_f.f0.regex = /^(.*)(evaluation|validation)(.*)$/
 
 phase_f.f1 = []
 phase_f.f1.alias = "AUC ROC"
 phase_f.f1.desc = "You decide to evaluate your model using ROC-AUC."
-phase_f.f1.dests = [] 
+phase_f.f1.dests = []
 phase_f.f1.regex = /^(.*)(auc|area under the curve)(.*)$/
 
 phase_f.f2 = []
@@ -304,7 +304,7 @@ phase_f.f2.regex = /^(.*)(accuracy)(.*)$/
 phase_f.f3 = []
 phase_f.f3.alias = "Cross-validation"
 phase_f.f3.desc = "You decide to evaluate your model using cross-validation."
-phase_f.f3.dests = [] 
+phase_f.f3.dests = []
 phase_f.f3.regex = /^(.*)(cross-validation|cross validation)(.*)$/
 
 
@@ -351,78 +351,78 @@ createRoom("M0", {
     misc.psd.images[data_state].forEach(element => {picture(element,600)})
   },
   regex: misc.psd.regex,
-  dests: [ 
+  dests: [
     new Exit('A3', { simpleUse : function(char){
       if (phase_counter === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[0])
-      } 
+      }
     }),
     new Exit('A4', { simpleUse : function(char){
       if (phase_counter === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[0])
-      } 
+      }
     }),
     new Exit('A5', { simpleUse : function(char){
       if (phase_counter === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[0])
-      } 
+      }
     }),
     new Exit('B0', { simpleUse : function(char){
       if (phase_counter ===0 && phase_a.gate % phase_a.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_a.unavailable)
-      } 
+      }
     }),
     new Exit('B1', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('B3', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('B4', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('B5', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('B6', { simpleUse : function(char){
       if (phase_counter === 1){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('C1', { simpleUse : function(char){
       if (phase_counter === 2){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('C2', { simpleUse : function(char){
       if (phase_counter === 2){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(misc.psd.denied[1])
-      } 
+      }
     }),
     new Exit('C0', { simpleUse : function(char){
       if (phase_counter === 1 && phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     }),
   ]
 })
@@ -459,7 +459,7 @@ createRoom("A3", {
       if (phase_a.gate % phase_a.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_a.unavailable)
-      } 
+      }
     })
   )
 })
@@ -476,7 +476,7 @@ createRoom("A4", {
       if (phase_a.gate % phase_a.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_a.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -492,7 +492,7 @@ createRoom('A5', {
       if (phase_a.gate % phase_a.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_a.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -522,23 +522,23 @@ createRoom('B1', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
-  ) 
+  )
 })
 
 
@@ -553,21 +553,21 @@ createRoom('B3', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -584,21 +584,21 @@ createRoom('B4', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -637,21 +637,21 @@ createRoom('B5A', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -679,21 +679,21 @@ createRoom('B5B', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -720,21 +720,21 @@ createRoom('B6', {
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c1.unavailable)
-        } 
+        }
     }),
     new Exit('C2',{
       simpleUse:function(char){
         if (false){
             return util.defaultSimpleExitUse(char, this)
           }else return falsemsg(phase_c.c2.unavailable)
-        } 
+        }
     }),
     new Exit('C0', {
       simpleUse:function(char){
       if (phase_b.gate % phase_b.condition === 0){
         return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_b.unavailable)
-      } 
+      }
     })
   ),
 })
@@ -753,7 +753,7 @@ createRoom('C0', {
       if (false){
           return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_c.c4.desc)
-      } 
+      }
   })),
 })
 
@@ -768,7 +768,7 @@ createRoom('C0', {
 //       if (false){
 //           return util.defaultSimpleExitUse(char, this)
 //         }else return falsemsg(phase_c.c4.desc)
-//       } 
+//       }
 //   })),
 // })
 
@@ -783,7 +783,7 @@ createRoom('C0', {
 //       if (false){
 //           return util.defaultSimpleExitUse(char, this)
 //         }else return falsemsg(phase_c.c4.desc)
-//       } 
+//       }
 //   })),
 // })
 
@@ -880,7 +880,7 @@ createRoom('E0', {
       if (false){
           return util.defaultSimpleExitUse(char, this)
         }else return falsemsg(phase_e.e2.desc)
-      } 
+      }
   })),
 })
 
@@ -998,19 +998,19 @@ createRoom('G1', {
             picture('16hzsetalda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg('Your model obtained balanced accuracy of 65.556\%! Could be better..')
-          } 
+          }
         }else if (phase_e.gate % 3 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetashrinklda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 53.333\%! That's near chance level :(")
-          } 
+          }
         } else if (phase_e.gate % 5 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetalogreg.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 50\%! That's chance level :(")
-          } 
+          }
         }
       } else if (phase_d.gate % 3 == 0){
         if (phase_e.gate % 2 == 0){
@@ -1018,13 +1018,13 @@ createRoom('G1', {
             picture('16hzsetblda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg('Your model obtained balanced accuracy of 77.037\%! Nice!')
-          } 
+          }
         }else if (phase_e.gate % 3 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetbshrinklda.png', 600)
           } else if (phase_f.gate % 3 == 0){
             msg("Your model obtained balanced accuracy of 55.185\%! That's near chance level :(")
-          } 
+          }
         } else if (phase_e.gate % 5 == 0){
           if (phase_f.gate % 2 == 0){
             picture('16hzsetblogreg.png', 600)
@@ -1053,10 +1053,10 @@ createRoom('G1', {
           }
         }
       } else {
-        msg("The dimmensionality of your data was too big and your crappy laptop ran out of memory :( Maybe you should've reduced each channel to just a few samples by taking the means of informative intervals of the data...")
+        msg("The dimensionality of your data was too big and your crappy laptop ran out of memory :( Maybe you should've reduced each channel to just a few samples by taking the means of informative intervals of the data...")
       }
     }
-    
+
   },
   dests:[]
 })
